@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="Armors Trader" script="default.lua" walkinterval="2000">
+	<health now="100" max="100"/>
+	<look type="451"/>
+	<parameters>
+		<parameter key="module_shop" value="1"/>
+		<parameter key="message_greet" value="Olá, |PLAYERNAME|! Eu compro algumas Armors. Diga {Trade}."/>
+		<parameter key="shop_sellable" value="
+			Basic Armor,12635,50;
+			Bardock Armor,12636,300;
+			Future Trunks Armor,12637,250;
+			Tunic,12638,20;
+			Black Coat,12639,50;
+			Fighter Armor,12640,50;
+			Scale Armor,12641,100;
+			Goten Armor,12642,300;
+			Piccolo Armor,12643,250;
+			Raditz Armor,12644,300;
+			Saiyan Armor,12645,400;
+			C18 Armor,12646,400;
+			Gohan Armor,12647,5000;
+			C17 Armor,12648,300;
+			C16 Armor,12649,5000;
+			Soldier Armor,12650,250;
+			Ussj Armor,12651,400;
+			Majin Armor,12652,400;
+			Piccolo Robe,12653,400;
+			Janemba Armor,12654,150000;
+			Goku Armor,12655,200000;
+			Tsuful Armor,12656,600;
+			Super C17 Armor,12657,100000;
+			Shin Armor,12658,3500;
+			Vegetto Armor,12659,120000;
+			Kaioshin Armor,13444,35000;
+			Fusion Armor,12660,50000;
+			Cell Armor,12661,200000;
+			Legendary Armor,12662,75000;
+			Supreme North Armor,12663,100000;
+			First Coat,12664,100;
+			Red Armor,12665,1500
+		"/>
+	</parameters>
+</npc>

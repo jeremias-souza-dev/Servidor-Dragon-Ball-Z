@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="Minoshi" script="chilled v.lua" skull="3" walkinterval="0">
+	<health now="100" max="100"/>
+	<look type="405"/>
+	<parameters>
+		<parameter key="module_shop" value="1"/>
+		<parameter key="message_greet" value="Eu posso transformar você em um Chilled, Diga {Chilled}. Você precisa ter 500 Small Topaz. Dropa em {Green Planet}"/>
+	</parameters>
+</npc>

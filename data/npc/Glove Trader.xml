@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="Glove Trader" script="default.lua" walkinterval="2000">
+	<health now="100" max="100"/>
+	<look type="454"/>
+	<parameters>
+		<parameter key="module_shop" value="1"/>
+		<parameter key="message_greet" value="Olá, |PLAYERNAME|! Eu compro algumas Gloves. Diga {Trade}."/>
+		<parameter key="shop_sellable" value="
+			Glove,12698,50;
+			Yellow Glove,12699,100;
+			Red Glove,12700,200;
+			White Glove,12701,500;
+			Green Glove,12702,600;
+			Stronge Glove,12703,700;
+			Bardock Glove,12704,800;
+			Saiyan Glove,12705,1000;
+			Blaster,12745,20000;
+			Majin Glove,12706,200000;
+			Vulcan Glove,12707,2500;
+			Silver Glove,12708,15000;
+			Skull Glove,12709,20000;
+			Golden Glove,12710,1000000;
+			Magic Glove,12711,30000;
+			Glove Of Honor,12712,35000;
+			Dragon Glove,12713,40000;
+			Glove Of Lies,12714,50000
+		"/>
+	</parameters>
+</npc>

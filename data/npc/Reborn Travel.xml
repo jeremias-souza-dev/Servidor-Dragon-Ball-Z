@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="Reborn Travel" script="rbtravel.lua" walkinterval="1000">
+	<health now="100" max="100"/>
+	<look type="468"/>
+	<parameters>
+		<parameter key="module_shop" value="1"/>
+		<parameter key="message_greet" value="Olá eu posso te levar pra {Reborn Quest}."/>
+	</parameters>
+</npc>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="Mega Trader" script="default.lua" walkinterval="2000">
+	<health now="100" max="100"/>
+	<look type="453"/>
+	<parameters>
+		<parameter key="module_shop" value="1"/>
+		<parameter key="message_greet" value="Olá, |PLAYERNAME|! Eu compro alguns itens. Diga {Trade}."/>
+		<parameter key="shop_sellable" value="
+			Boots,12684,50;
+			Vilage Boots,12685,100;
+			Saiyan Boots,12686,500;
+			Future Trunks Boots,12687,200;
+			Bardock Boots,12688,300;
+			Janemba Boots,12689,4000;
+			Broly Boots,12690,5000;
+			Majin Boots,12691,500;
+			C17 Boots,12692,3500;
+			Goku Boots,12693,5000;
+			Fusion Boots,12694,50000;
+			Legendary Boots,12695,75000;
+			Supreme North Boots,12696,100000;
+			First Boots,12697,100;
+			Eye Mask,12621,50;
+			Chibi Gohan Cap,12622,50;
+			Red Ribbon Cap,12623,100;
+			Ninja Helmet,12625,250;
+			Soldier Helmet,12626,150;
+			Pai Pai Helmet,12627,500;
+			Paul Cap,12628,600;
+			Piccolo Cap,12629,5000;
+			Broly Amulation,12630,1000;
+			Great Saiyan Helmet,12631,3500;
+			Janemba Helmet,12632,40000;
+			Cell Helmet,12633,50000;
+			First Bandana,12634,100;
+			Glove,12698,50;
+			Yellow Glove,12699,100;
+			Red Glove,12700,200;
+			White Glove,12701,500;
+			Green Glove,12702,600;
+			Stronge Glove,12703,700;
+			Bardock Glove,12704,800;
+			Saiyan Glove,12705,1000;
+			Majin Glove,12706,1500;
+			Vulcan Glove,12707,2500;
+			Silver Glove,12708,15000;
+			Skull Glove,12709,20000;
+			Golden Glove,12710,25000;
+			Magic Glove,12711,30000;
+			Glove Of Honor,12712,35000;
+			Dragon Glove,12713,40000;
+			Glove Of Lies,12714,50000;
+			Basic Armor,12635,50;
+			Bardock Armor,12636,300;
+			Future Trunks Armor,12637,250;
+			Tunic,12638,25;
+			Black Coat,12639,50;
+			Fighter Armor,12640,50;
+			Scale Armor,12641,100;
+			Goten Armor,12642,300;
+			Piccolo Armor,12643,250;
+			Raditz Armor,12644,300;
+			Saiyan Armor,12645,400;
+			C18 Armor,12646,400;
+			Gohan Armor,12647,5000;
+			C17 Armor,12648,300;
+			C16 Armor,12649,5000;
+			Soldier Armor,12650,250;
+			Ussj Armor,12651,400;
+			Majin Armor,12652,400;
+			Piccolo Robe,12653,400;
+			Janemba Armor,12654,35000;
+			Goku Armor,12655,1500;
+			Tsuful Armor,12656,600;
+			Super C17 Armor,12657,10000;
+			Shin Armor,12658,3500;
+			Vegetto Armor,12659,1200;
+			Kaioshin Armor,13444,35000;
+			Fusion Armor,12660,50000;
+			Cell Armor,12661,20000;
+			Legendary Armor,12662,75000;
+			Supreme North Armor,12663,100000;
+			First Coat,12664,100;
+			Red Armor,12665,1500;
+			Fighter Legs,12666,50;
+			Scale Legs,12667,50;
+			Majin Legs,12668,400;
+			Soldier Legs,12669,200;
+			Bardock Legs,12670,300;
+			C17 Legs,12671,300;
+			Ussj Legs,12672,500;
+			Piccolo Legs,12673,300;
+			Boo Legs,12674,600;
+			Goku Legs,12675,1500;
+			Broly Legs,12676,1000;
+			Unknow Legs,12677,1500;
+			Goku SSJ5 Legs,12678,2500;
+			Janemba Legs,12679,20000;
+			Mystic Legs,13443,35000;
+			Fusion Legs,12680,50000;
+			Legendary Legs,12681,75000;
+			Supreme North Legs,12682,100000;
+			First Legs,12683,100;
+			Darkness Sword,12715,35000;
+			Small Sword,12716,50;
+			Jin Sword,12717,50;
+			Night Sword,12718,100;
+			Katana,12719,150;
+			Soldier Sword,12720,200;
+			Demon Sword,12721,300;
+			Scimithar,12722,400;
+			Broly Sword,12723,500;
+			Z Sword,12724,1300;
+			Light Sword,12725,600;
+			Spirit Sword,12726,700;
+			Rapier,12727,800;
+			Janemba Sword,12728,1500;
+			Sword Of Fire,12729,2500;
+			Saiyan Sword,12730,20000;
+			Sword Of Ice,12731,30000;
+			Sword Of Fury,13390,40000;
+			Two Handed Sword,12732,50000;
+			Hell Janemba Sword,12733,50000
+		"/>
+	</parameters>
+</npc>

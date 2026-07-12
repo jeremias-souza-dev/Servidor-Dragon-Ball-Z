@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="Vados" script="vados.lua" skull="3" walkinterval="0">
+	<health now="100" max="100"/>
+	<look type="628"/>
+	<parameters>
+		<parameter key="module_shop" value="1"/>
+		<parameter key="message_greet" value="Eu posso transformar você em um Vados, Diga {vados}. Você precisa ter 1 Strange Symbol."/>
+	</parameters>
+</npc>

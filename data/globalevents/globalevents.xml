@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<globalevents>
+	<globalevent name="clean" interval="1800000" event="script" value="clean.lua"/>
+	<globalevent name="save" interval="3600000" event="script" value="save.lua"/>
+	<globalevent name="piccolo-effect" interval="1300" event="script" value="piccoloeffect.lua"/>
+	<globalevent name="automsg4" interval="800000" event="script" value="automsg4.lua"/>
+	<globalevent name="init" type="startup" event="script" value="init.lua"/>
+	<globalevent name="record" type="record" event="script" value="record.lua"/>
+	<globalevent name="ZombieGlobalThink" interval="5000" event="script" value="zombie/onthink.lua"/>
+	<globalevent name="ZombieGlobalStartup" type="start" event="script" value="zombie/onstartup.lua"/>
+	<globalevent name="GlobalBattle" interval="60000" event="script" value="BattleGlobalEvents.lua"/>
+	<globalevent name="OpenCastle" time="19:30" event="script" value="tpcastle.lua"/>
+	<globalevent name="CloseCastle" time="20:00" event="script" value="tpcastle.lua"/>
+	<globalevent name="OpenTpAutomatico" time="19:20" event="script" value="tpautomatico.lua"/>
+	<globalevent name="CloseTpAutomatico" time="19:25" event="script" value="tpautomatico.lua"/>
+	<globalevent name="OpenTpAutomatico5" time="19:40" event="script" value="tpautomaticolast.lua"/>
+	<globalevent name="CloseTpAutomatico5" time="19:45" event="script" value="tpautomaticolast.lua"/>
+	<globalevent name="lottery" interval="10800000" event="script" value="lottery.lua"/>
+    <globalevent name="shop" interval="30" script="shop.lua"/>
+</globalevents>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="Senhor Zeno" script="Zeno.lua" skull="4" walkinterval="3000">
+	<health now="100" max="100"/>
+	<look type="641"/>
+	<parameters>
+		<parameter key="module_shop" value="1"/>
+		<parameter key="message_greet" value="Você me trouxe uma Primatic Stone ? {Yes}."/>
+	</parameters>
+</npc>

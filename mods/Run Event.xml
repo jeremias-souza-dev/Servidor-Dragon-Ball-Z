@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mod name="Run_Event" version="3.0" author="CollocorpuseK" contact="otland.net" enabled="yes">
+
+	<config name="config_run_event">
+		<![CDATA[
+			configRunEvent = {
+				storages = {
+					player = 'runEventPlayer', -- set free storage
+					joining = 'runEventJoining', -- set free storage
+					group = 'runEventGroup', -- set free storage
+					exhaust = 'runEventExhaust', -- set free storage
+					countEvent = 'runEventCountEvent' -- set free storage
+				},
+
+				position = {x=321, y=232, z=8}, -- Posicao que vai ser teleportado os players
+				
+				rewards = {12289}, -- Itens pro vencedor ( Sera sortido)
+				players = {
+					max = 20, -- Maximo de player
+					min = 5, -- Minimo de player
+					minLevel = 200, -- Level minimo pra entrar no evento
+					speed = 500 -- Velocidade que todos ficaram
+				},
+				
+				days = {
+					['Sunday'] = {'19:00:00'}
+				},
+
+				delayTime = 5.0, -- Tempo pros players dizer o comando [minutos]
+				startEvent = 2, -- Tempo pra comecar o evento quando todos players tiverem no local [ segundos ]
+				text = 'A corrida começará em instantes, aguarde.'
+			}
+		]]>
+	</config>
+
+	<lib name="lib_run_event">
+		<![CDATA[
+			function doStartEventRun()
+				if configRunEvent.players.min <= doCountPlayersRunEvent() then
+					for _, cid in ipairs(getPlayersOnline()) do
+						if getCreatureStorage(cid, configRunEvent.storages.player) > 0 then
+							doRemoveCondition(cid, CONDITION_INFIGHT) -- fight
+							doTeleportThing(cid, configRunEvent.position)	-- teleport pos
+							doChangeSpeed(cid, configRunEvent.players.speed - getCreatureBaseSpeed(cid)) -- predkosc
+							doCreatureSetStorage(cid, configRunEvent.storages.group, getPlayerGroupId(cid)) -- storage
+							doPlayerSetGroupId(cid, 7) -- grupa
+							addEvent(doCreatureSetNoMove, configRunEvent.startEvent * 1000, cid, false)
+							doPlayerSendTextMessage(cid, MESSAGE_EVENT_ADVANCE, 'Fique pronto. A corrida começará em '..configRunEvent.startEvent..' segundos.')
+						end
+					end
+
+					addEvent(doCheckSpeedRunEvent, configRunEvent.startEvent * 1000)
+					doBroadcastMessage('A corrida começou. Vamos Lá!')
+				else
+					for _, cid in ipairs(getPlayersOnline()) do
+						if getCreatureStorage(cid, configRunEvent.storages.player) > 0 then
+							doCreatureSetStorage(cid, configRunEvent.storages.player, -1)
+							doCreatureSetNoMove(cid, false)
+							doRemoveCondition(cid, CONDITION_INFIGHT)
+						end
+					end
+
+					doBroadcastMessage('O Rush Event não começou pois não haviam jogadores suficientes.')
+				end
+
+				doSetStorage(configRunEvent.storages.joining, -1)
+			end
+
+			function doCountPlayersRunEvent()
+				local x = 0
+				for _, cid in ipairs(getPlayersOnline()) do
+					if getCreatureStorage(cid, configRunEvent.storages.player) > 0 then
+						x = x + 1
+					end
+				end
+				return x
+			end
+			
+			function doStartCountingRunEvent(x)
+				if configRunEvent.delayTime-x > 0 then
+					doBroadcastMessage('O Rush Event irá começar em '..configRunEvent.delayTime-x..' minutos. Voce pode participar dizendo "!run join".')
+					addEvent(doStartCountingRunEvent, 60*1000, x+1)
+				end
+			end
+
+			function doCheckSpeedRunEvent()
+				if doCountPlayersRunEvent() > 0 then
+					addEvent(doCheckSpeedRunEvent, 1000)
+				end
+
+				for _, cid in ipairs(getPlayersOnline()) do
+					if getCreatureStorage(cid, configRunEvent.storages.player) > 0 then
+						if getCreatureSpeed(cid) ~= configRunEvent.players.speed then
+							doChangeSpeed(cid, (getCreatureSpeed(cid) < configRunEvent.players.speed and configRunEvent.players.speed - getCreatureSpeed(cid) or getCreatureSpeed(cid) > configRunEvent.players.speed and - (getCreatureSpeed(cid) - configRunEvent.players.speed)))
+						end
+					end
+				end
+			end
+		]]>
+	</lib>
+
+	<talkaction words="!run" event="script">
+		<![CDATA[
+			domodlib("config_run_event")
+
+			function onSay(cid, words, param)
+				if getStorage(configRunEvent.storages.joining) ~= 1 then
+					return doPlayerSendCancel(cid, 'O Rush Event ainda não começou.')
+				elseif param == '' then
+					return doPlayerSendCancel(cid, 'Comando requirido: (diga: "!run join" ou "!run leave").')
+				elseif getPlayerLevel(cid) < configRunEvent.players.minLevel then
+					return doPlayerSendCancel(cid, 'Voce não pode participar pois não tem level '..configRunEvent.players.minLevel..'.')
+				elseif getTileInfo(getThingPos(cid)).protection ~= true then
+					return doPlayerSendCancel(cid, 'Voce não pode participar se não estiver em protection zone.')
+				elseif exhaustion.check(cid, configRunEvent.storages.exhaust) ~= false then
+					return doPlayerSendCancel(cid, 'Voce deve esperar '..exhaustion.get(cid, configRunEvent.storages.exhaust)..' segundos para usar o comando novamente.')
+				end
+
+				if param == 'join' then
+					if getCreatureStorage(cid, configRunEvent.storages.player) > 0 then
+						return doPlayerSendCancel(cid, 'Voce já irá participar do evento. Aguarde até o início da corrida.')
+					elseif doCountPlayersRunEvent() == configRunEvent.players.max then
+						return doPlayerSendCancel(cid, 'O número máximo de jogadores foi atingido para o Rush Event.')
+					end
+
+					doCreatureSetNoMove(cid, true)
+					doPlayerPopupFYI(cid, configRunEvent.text)
+					doCreatureSetStorage(cid, configRunEvent.storages.player, 1)
+					doAddCondition(cid, createConditionObject(CONDITION_INFIGHT, -1))
+					doPlayerSendTextMessage(cid, MESSAGE_EVENT_ADVANCE, 'Voce entrou para o Rush Event. Não poderá se mover até que de o início da corrida. Espere pacientemente o início do evento.')
+					doPlayerSendTextMessage(cid, MESSAGE_EVENT_ORANGE, 'Voce entrou para o Rush Event.')					
+				elseif param == 'leave' then
+					if getCreatureStorage(cid, configRunEvent.storages.player) <= 0 then
+						return doPlayerSendCancel(cid, 'Voce não pode sair do  Rush Event se não estiver participando.')
+					end
+
+					doCreatureSetNoMove(cid, false)
+					doCreatureSetStorage(cid, configRunEvent.storages.player, -1)
+					doRemoveCondition(cid, CONDITION_INFIGHT)
+					doPlayerSendTextMessage(cid, MESSAGE_EVENT_ORANGE, 'Voce saiu do Rush Event.')
+				end
+
+				exhaustion.set(cid, configRunEvent.storages.exhaust, 5)
+				return true
+			end
+		]]>
+	</talkaction>
+
+	<talkaction words="/startrun" access="5" event="script">
+		<![CDATA[
+			domodlib("config_run_event")
+			domodlib("lib_run_event")
+
+			function onSay(cid, words, param)
+				doSetStorage(configRunEvent.storages.joining, 1)
+				addEvent(doStartEventRun, configRunEvent.delayTime * 60 * 1000)
+				doStartCountingRunEvent(0)
+
+				for _, pid in ipairs(getPlayersOnline()) do
+					if getCreatureStorage(pid, configRunEvent.storages.player) > 0 then
+						doCreatureSetStorage(pid, configRunEvent.storages.player, -1)
+
+						doPlayerSetGroupId(pid, getCreatureStorage(pid, configRunEvent.storages.group))
+						doChangeSpeed(pid, getCreatureBaseSpeed(pid) - configRunEvent.players.speed)
+						doTeleportThing(pid, getTownTemplePosition(getPlayerTown(pid)), true)
+					end
+				end
+				return true
+			end
+		]]>
+	</talkaction>
+
+	<movement type="StepIn" actionid="5467" event="script">
+		<![CDATA[
+			domodlib("config_run_event")
+
+			function onStepIn(cid, item, position)
+				if getCreatureStorage(cid, configRunEvent.storages.player) > 0 then
+					local prize = math.random(#configRunEvent.rewards)
+
+					doCreatureSetStorage(cid, configRunEvent.storages.player, -1)
+					doPlayerAddItem(cid, configRunEvent.rewards[prize], 1)
+					doChangeSpeed(cid, getCreatureBaseSpeed(cid) - configRunEvent.players.speed)
+					doPlayerSetGroupId(cid, math.max(1, getCreatureStorage(cid, configRunEvent.storages.group)))
+					doTeleportThing(cid, getTownTemplePosition(getPlayerTown(cid)), true)
+					doBroadcastMessage('Run Event acabou. O vencedor é '..getCreatureName(cid)..'!')
+					doPlayerSendTextMessage(cid, MESSAGE_EVENT_ADVANCE, 'Parabéns! Voce foi o vencedor! Voce ganhou uma '..getItemNameById(configRunEvent.rewards[prize])..'.')
+					db.query("INSERT INTO `events` (`event_name`, `winner_name`, `won_item`, `time_win`) VALUES (\"Run\", \"" .. getCreatureName(cid) .. "\", \"" .. getItemNameById(configRunEvent.rewards[prize]) .. "\", " .. getStorage(configRunEvent.storages.countEvent) ..");")
+
+					doSetStorage(configRunEvent.storages.countEvent, getStorage(configRunEvent.storages.countEvent) + 1)
+
+					for _, pid in ipairs(getPlayersOnline()) do
+						if getCreatureStorage(pid, configRunEvent.storages.player) > 0 then
+							doCreatureSetStorage(pid, configRunEvent.storages.player, -1)
+							
+							doPlayerSetGroupId(pid, math.max(1, getCreatureStorage(pid, configRunEvent.storages.group)))
+							doChangeSpeed(pid, getCreatureBaseSpeed(pid) - configRunEvent.players.speed)
+							doTeleportThing(pid, getTownTemplePosition(getPlayerTown(pid)), true)
+							doPlayerSendTextMessage(pid, MESSAGE_EVENT_ADVANCE, 'Voce perdeu!')
+						end
+					end
+				end
+				return true
+			end
+		]]>
+	</movement>
+
+	<globalevent name="Run_Event_Days" interval="1000" event="script">
+		<![CDATA[
+			domodlib("config_run_event")
+			domodlib("lib_run_event")
+
+			local daysOpen = {}
+			for k, v in pairs(configRunEvent.days) do
+				table.insert(daysOpen, k)
+			end
+
+			function onThink(interval)
+				if isInArray(daysOpen, os.date("%A")) then
+					if isInArray(configRunEvent.days[os.date("%A")], os.date("%X", os.time())) then
+						if getStorage(configRunEvent.storages.joining) ~= 1 then
+							doSetStorage(configRunEvent.storages.joining, 1)
+							addEvent(doStartEventRun, configRunEvent.delayTime * 60 * 1000)
+							doStartCountingRunEvent(0)
+
+							for _, pid in ipairs(getPlayersOnline()) do
+								if getCreatureStorage(pid, configRunEvent.storages.player) > 0 then
+									doCreatureSetStorage(pid, configRunEvent.storages.player, -1)
+
+									doPlayerSetGroupId(pid, math.max(1, getCreatureStorage(pid, configRunEvent.storages.group)))
+									doChangeSpeed(pid, getCreatureBaseSpeed(pid) - configRunEvent.players.speed)
+									doTeleportThing(pid, getTownTemplePosition(getPlayerTown(pid)), true)
+								end
+							end
+						end
+					end
+				end
+				return true
+			end
+		]]>
+	</globalevent>
+
+	<event type="login" name="Run_Event_Login" event="script">
+		<![CDATA[
+			domodlib("config_run_event")
+
+			function onLogin(cid)
+				if getCreatureStorage(cid, configRunEvent.storages.player) > 0 then
+					doCreatureSetStorage(cid, configRunEvent.storages.player, -1)
+					doPlayerSetGroupId(cid, math.max(1, getCreatureStorage(cid, configRunEvent.storages.group)))
+					doCreatureSetNoMove(cid, false)
+					doRemoveCondition(cid, CONDITION_INFIGHT)
+					doTeleportThing(cid, getTownTemplePosition(getPlayerTown(cid)), true)
+				end
+				return true
+			end
+		]]>
+	</event>
+	
+	<globalevent name="Run_Event_Start" type="startup" event="script">
+		<![CDATA[
+			domodlib("config_run_event")
+
+			function onStartup()
+				doSetStorage(configRunEvent.storages.joining, -1)
+				return true
+			end
+		]]>
+	</globalevent>
+</mod>

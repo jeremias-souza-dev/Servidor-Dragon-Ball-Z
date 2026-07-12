@@ -1,0 +1,85 @@
+-----------------------------
+            *** Bugs Reportados ***
+-----------------------------
+
+
+
+Kill reportou um bug em: 
+22 March 2015 - 03:45:23 
+adm o poder de kanudo do brolly n aparece mas hita
+Position: [x=815, y=836, z=6].
+
+Marf reportou um bug em: 
+10 April 2015 - 22:01:53 
+achei um
+Position: [x=76, y=487, z=8].
+
+[CM] Leo The King reportou um bug em: 
+26 August 2016 - 15:26:43 
+LeoVever Lost
+Position: [x=101, y=185, z=7].
+
+Marcos reportou um bug em: 
+26 August 2016 - 17:00:56 
+bug
+Position: [x=584, y=469, z=6].
+
+Vinicius reportou um bug em: 
+26 August 2016 - 18:33:37 
+bug onde fica o negocio de botar a bandana e os brinco ta trocado a bandana ta em cima e o brinco ta em baixo a bandana ta ficando em cima dos brincos
+Position: [x=407, y=103, z=7].
+
+Shenron reportou um bug em: 
+27 August 2016 - 20:32:07 
+bug estou preso dentro da parede na quest da warrior swrd falei na staf mais ngm veio ver
+Position: [x=346, y=546, z=5].
+
+My Name Wellington reportou um bug em: 
+29 August 2016 - 22:15:28 
+Boros
+Position: [x=96, y=187, z=7].
+
+Gameserve reportou um bug em: 
+02 September 2016 - 09:28:13 
+so muita coisa por isso
+Position: [x=1260, y=70, z=0].
+
+Gameserve reportou um bug em: 
+02 September 2016 - 09:31:40 
+como fassa pra ser da staff???
+Position: [x=1300, y=63, z=0].
+
+Gameserve reportou um bug em: 
+02 September 2016 - 09:33:07 
+em sand obscurion o octopos  ta bugado na  hora da morte fala dead kibito
+Position: [x=1276, y=74, z=0].
+
+Esccotteiro reportou um bug em: 
+07 September 2016 - 15:36:04 
+ae adm
+Position: [x=1005, y=162, z=7].
+
+Esccotteiro reportou um bug em: 
+07 September 2016 - 15:37:13 
+adm ta tendo um bug lah na quest legendary nao dar pra terminar ela pq tem um apa de boos respwunado lah tira akele bug pq queremos o set legendary
+Position: [x=1003, y=191, z=7].
+
+Asmodeus reportou um bug em: 
+09 September 2016 - 15:51:18 
+REMOVER ANTI RELOG NO CASTLE
+Position: [x=216, y=1045, z=15].
+
+Dead Ryder reportou um bug em: 
+18 September 2016 - 03:18:49 
+Novo cliente com problemas, bot as vezes não aparece, não usa light, se fecha a aba do bot ele não abre mais.
+Position: [x=109, y=232, z=9].
+
+Blood Death reportou um bug em: 
+02 September 2019 - 12:32:18 
+achei um bug
+Position: [x=624, y=192, z=7].
+
+Blood Death reportou um bug em: 
+02 September 2019 - 12:33:21 
+bug na cave 180 dos buu
+Position: [x=78, y=433, z=6].

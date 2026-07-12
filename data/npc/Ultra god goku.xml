@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="Ultra God" script="data/npc/scripts/ultra god goku.lua"  access="5" lookdir="1">
+<health now="1000" max="1000"/>
+<look type="548" head="45" body="67" legs="79" feet="10" addons="1"/>
+	<parameters>
+		<parameter key="message_greet" value="Ola, |PLAYERNAME|. Se você quiser virar ultra god diga {Ultra God}" />
+	</parameters>
+</npc>

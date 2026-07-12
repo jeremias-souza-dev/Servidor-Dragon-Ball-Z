@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="Indicador De Versao" script="indicador.lua" walkinterval="0" floorchange="0" access="5">
+<health now="100" max="100"/>
+<look type="629"/>
+<parameters>
+	<parameter key="message_greet" value="Olá |PLAYERNAME|! Eu indico qual versão do servidor estamos para caso precise {baixar} um novo client ou o {bot}. Versão atual: 0.61 "/>
+</parameters>
+</npc>

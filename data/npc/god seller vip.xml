@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="God Seller VIP" script="god seller vip.lua" skull="4" walkinterval="0">
+	<health now="100" max="100"/>
+	<look type="330"/>
+	<parameters>
+		<parameter key="module_shop" value="1"/>
+		<parameter key="message_greet" value="Ola, eu vendo itens god: {God Senzu}"/>
+	</parameters>
+</npc>

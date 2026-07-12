@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="Vegetto Black" script="vegetto black.lua" skull="4" walkinterval="3000">
+	<health now="100" max="100"/>
+	<look type="630"/>
+	<parameters>
+		<parameter key="module_shop" value="1"/>
+		<parameter key="message_greet" value="Eu posso transformar você em um Vegetto Black, Diga {vegetto}. Você precisa ter 1 Black Stone."/>
+	</parameters>
+</npc>

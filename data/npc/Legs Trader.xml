@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="Legs Trader" script="default.lua" walkinterval="2000">
+	<health now="100" max="100"/>
+	<look type="458"/>
+	<parameters>
+		<parameter key="module_shop" value="1"/>
+		<parameter key="message_greet" value="Olá, |PLAYERNAME|! Eu compro algumas Legs. Diga {Trade}."/>
+		<parameter key="shop_sellable" value="
+			Fighter Legs,12666,50;
+			Scale Legs,12667,50;
+			Majin Legs,12668,400;
+			Soldier Legs,12669,200;
+			Bardock Legs,12670,300;
+			C17 Legs,12671,300;
+			Ussj Legs,12672,500;
+			Piccolo Legs,12673,300;
+			Boo Legs,12674,60000;
+			Goku Legs,12675,200000;
+			Broly Legs,12676,1000;
+			Unknow Legs,12677,1500;
+			Goku SSJ5 Legs,12678,250000;
+			Janemba Legs,12679,200000;
+			Mystic Legs,13443,35000;
+			Fusion Legs,12680,50000;
+			Legendary Legs,12681,75000;
+			Supreme North Legs,12682,100000;
+			First Legs,12683,100
+		"/>
+	</parameters>
+</npc>

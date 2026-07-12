@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="Anti Loss Seller" script="default.lua" walkinterval="2000">
+	<health now="100" max="100"/>
+	<look type="326"/>
+	<parameters>
+	    <parameter key="module_shop" value="1"/>
+		<parameter key="message_greet" value="Olá, |PLAYERNAME|! Eu vendo Band Of Loss. por 100000 Golds diga {trade}."/>
+		<parameter key="shop_buyable" value="
+			Band Of Loss,12758,100000
+		"/>
+	</parameters>
+</npc>

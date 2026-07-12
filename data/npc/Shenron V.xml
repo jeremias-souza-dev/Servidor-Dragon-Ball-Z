@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="Minoshi" script="shenron v.lua" skull="3" walkinterval="0">
+	<health now="100" max="100"/>
+	<look type="405"/>
+	<parameters>
+		<parameter key="module_shop" value="1"/>
+		<parameter key="message_greet" value="Eu posso transformar você em um Shenron, Diga {Shenron}. Você precisa ter 500 Small emeralds. Dropa em {Divine Florest}"/>
+	</parameters>
+</npc>
