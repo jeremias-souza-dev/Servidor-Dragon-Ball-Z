@@ -19,3 +19,16 @@ data/logs/talkactions/*.log
 Thumbs.db
 desktop.ini
 *.tmp
+
+# Visual Studio / MSBuild files
+.vs/
+Debug/
+Release/
+x64/
+x86/
+*.pdb
+*.ilk
+*.recipe
+*.iobj
+*.ipdb
+

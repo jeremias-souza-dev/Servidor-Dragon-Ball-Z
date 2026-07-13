@@ -1,0 +1,51 @@
+[19:19:08.518] Dragon Ball JS, Versao 0.4_SVN (rev3996)
+[19:19:08.518] Compilado com Microsoft Visual C++ version 14.0 em Jul 12 2026, 18:36:27.
+[19:19:08.518] TFS editada totalmente por Jeremias de Souza.
+
+[19:19:08.518] >> Carregando Configuracoes (config.lua)
+[19:19:08.519] > Abrindo Historico
+[19:19:08.519] > Usando Bcrypt criptografia
+[19:19:08.519] >> Carregando RSA key
+[19:19:08.519] >> Iniciando conexao SQL
+[19:19:08.529] >> Executando Gerenciador de Banco de Dados
+[19:19:08.789] > Sem tabelas para optimizar.
+[19:19:08.789] >> Carregando items (OTB)
+[19:19:08.930] >> Carregando items (XML)
+[19:19:08.971] >> Carregando Grupos
+[19:19:08.971] >> Carregando Vocacoes
+[19:19:08.993] >> Carregando Outfits
+[19:19:08.993] >> Carregando Canal de Chat
+[19:19:08.997] >> Carregando Sistema
+[19:19:09.168] >> Carregando Mods...
+[19:19:09.169] > Loading Clean Houses.xml... done.
+[19:19:09.169] > Loading Run Event.xml... done.
+[19:19:09.170] > Loading Simple Task.xml... done.
+[19:19:09.170] > 3 mods were loaded.
+[19:19:09.170] >> Carregando EXP Stages
+[19:19:09.170] >> Carregando Monstros
+[19:19:09.226] >> Carregando Mapa e Spawns...
+[19:19:09.428] > Tamanho do Mapa: 2000x2000.
+[19:19:09.428] > Descricao do Mapa: 
+[19:19:09.428] "Saved with Remere's Map Editor 3.6"
+[19:19:09.428] "Edited By Kramer"
+[19:19:10.737] > Mapa carregado em: 1.51 segundos.
+[19:19:10.928] [Warning - Houses::loadFromXml] House entry not set for: Forgotten headquarter (Flat 1, Area 42) (165)
+[19:19:10.928] [Warning - Houses::loadFromXml] House entry not set for: Forgotten headquarter (Flat 1, Area 42) (166)
+[19:19:10.928] [Warning - Houses::loadFromXml] House entry not set for: Forgotten headquarter (Flat 1, Area 42) (168)
+[19:19:10.928] > Data carregada em: 0.191 segundos.
+[19:19:11.049] > Houses carregada em: 0.121 segundos.
+[19:19:11.323] > Content unserialization time: 0.274 seconds.
+[19:19:11.323] > Carregando Tipo de PVP... Open PvP
+[19:19:11.323] > Inicializando estado do jogo e registrando servicos...
+[19:19:11.378] > IP do Servidor: 127.0.0.1
+[19:19:11.380] > IP local do Servidor: 172.19.96.1	192.168.18.247	
+[19:19:11.381] > Portas do Servidor: 7171	7172	
+[19:19:11.381] >> Tudo ocorreu bem ate aqui, o servidor sera iniciado...
+[19:19:12.386] > Salvando servidor...
+[19:19:12.866] > SAVE: Completo em 0.48 segundos usando relational casa storage.
+[19:19:21.391] >> Dragon Ball JS servidor Online!
+
+[19:20:00.224] mysql_real_query(): SELECT `id`, `account_id`, `group_id`, `world_id`, `sex`, `vocation`, `experience`, `level`, `maglevel`, `health`, `healthmax`, `blessings`, `mana`, `manamax`, `manaspent`, `soul`, `lookbody`, `lookfeet`, `lookhead`, `looklegs`, `looktype`, `lookaddons`, `posx`, `posy`, `posz`, `cap`, `lastlogin`, `lastlogout`, `lastip`, `conditions`, `skull`, `skulltime`, `guildnick`, `rank_id`, `town_id`, `balance`, `stamina`, `direction`, `loss_experience`, `loss_mana`, `loss_skills`, `loss_containers`, `loss_items`, `marriage`, `promotion`, `description` FROM `players` WHERE `name` = 'Account Manager' AND `world_id` = 0 AND `deleted` = 0 LIMIT 1 - MYSQL ERROR: Unknown column 'loss_containers' in 'field list' (1054)
+[19:27:13.017] mysql_real_query(): SELECT `player_id` AS `vip` FROM `account_viplist` WHERE `account_id` = 1 AND `world_id` = 0 - MYSQL ERROR: Unknown column 'world_id' in 'where clause' (1054)
+[19:27:13.036] Jere has logged in.
+> Broadcasted message: "New record: 1 players are logged in.".
