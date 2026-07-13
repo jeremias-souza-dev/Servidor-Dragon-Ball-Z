@@ -408,7 +408,23 @@ function k1(cid)
 	addEvent(k2,100,cid)
 end
   
+local kiCombats = {combat1, combat2, combat3, combat4, combat5, combat6, combat7, combat8,
+	combat9, combat10, combat11, combat12, combat13, combat14, combat15, combat16}
+
 function onCastSpell(cid, var)
-      addEvent(k1,0,cid)
-return true
+	local currentKi = getPlayerCurrentKi(cid)
+	if currentKi <= 0 then
+		doPlayerSendCancel(cid, "Seu Ki esta muito baixo! Use !charge para carregar energia.")
+		return false
+	end
+
+	local kiRatio = currentKi / getPlayerMaxKi(cid)
+	doPlayerConsumeKi(cid, math.floor(currentKi * 0.4))
+
+	for _, combat in ipairs(kiCombats) do
+		setCombatFormula(combat, COMBAT_FORMULA_LEVELMAGIC, -250.0 * kiRatio, 0, -300.0 * kiRatio, 0)
+	end
+
+	addEvent(k1,0,cid)
+	return true
 end

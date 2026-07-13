@@ -166,30 +166,55 @@ function gd5(cid)
 	end
 end
 
+-- A Genki Dama nao usa o Ki do conjurador: ela canaliza energia externa,
+-- drenando Soul Points a cada estagio. Se o jogador ficar sem SP durante a
+-- canalizacao, a esfera se desfaz antes de disparar (ver design do !charge
+-- em data/lib/090-ki.lua: Kamehameha gasta Ki, Genki Dama gasta SP+tempo).
+local function drainSoulOrCancel(cid)
+	if not isPlayer(cid) then
+		return false
+	end
+	if getPlayerSoul(cid) < 1 then
+		doPlayerSendTextMessage(cid, MESSAGE_STATUS_CONSOLE_BLUE, "Voce nao tem energia espiritual suficiente para sustentar a Genki Dama... ela se dissipa!")
+		doSendMagicEffect(getCreaturePosition(cid), CONST_ME_POFF)
+		return false
+	end
+	doPlayerAddSoul(cid, -1)
+	return true
+end
+
 function gd4(cid)
-	doPlayerSay(cid, 'Finalmente esta pronta...!', TALKTYPE_ORANGE_1)                 
+	if not drainSoulOrCancel(cid) then return end
+	doPlayerSay(cid, 'Finalmente esta pronta...!', TALKTYPE_ORANGE_1)
 	addEvent(gd5,5000,cid)
 end
 
 function gd3(cid)
-	doPlayerSay(cid, 'So mais um pouco por favor!', TALKTYPE_ORANGE_1)                 
+	if not drainSoulOrCancel(cid) then return end
+	doPlayerSay(cid, 'So mais um pouco por favor!', TALKTYPE_ORANGE_1)
 	addEvent(gd4,5000,cid)
 end
 
 function gd2(cid)
-	doPlayerSay(cid, 'Emprestem suas energias!', TALKTYPE_ORANGE_1)                 
+	if not drainSoulOrCancel(cid) then return end
+	doPlayerSay(cid, 'Emprestem suas energias!', TALKTYPE_ORANGE_1)
 	addEvent(gd3,5000,cid)
 end
 
 function gd1(cid)
-	doPlayerSay(cid, 'Levantem as maos por favor!', TALKTYPE_ORANGE_1)                 
+	if not drainSoulOrCancel(cid) then return end
+	doPlayerSay(cid, 'Levantem as maos por favor!', TALKTYPE_ORANGE_1)
 	addEvent(gd2,5000,cid)
 end
-  
+
 function onCastSpell(cid, var)
 	if exhaustion.check(cid, 13102) == TRUE then
 		doPlayerSendCancel(cid, "Podera usar novamente dentro de 20 segundos.")
 		doSendMagicEffect(getCreaturePosition(cid), 2)
+		return false
+	end
+	if getPlayerSoul(cid) < 4 then
+		doPlayerSendCancel(cid, "Voce precisa de pelo menos 4 pontos de energia espiritual para comecar a reunir a Genki Dama.")
 		return false
 	end
 	addEvent(gd1,0,cid)

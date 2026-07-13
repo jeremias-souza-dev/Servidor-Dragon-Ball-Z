@@ -17,4 +17,5 @@
 	<globalevent name="CloseTpAutomatico5" time="19:45" event="script" value="tpautomaticolast.lua"/>
 	<globalevent name="lottery" interval="10800000" event="script" value="lottery.lua"/>
     <globalevent name="shop" interval="30" script="shop.lua"/>
+    <globalevent name="chatbridge" interval="1000" script="chatbridge.lua"/>
 </globalevents>

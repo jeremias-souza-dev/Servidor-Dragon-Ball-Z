@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <talkactions>
 	<!-- Gods -->
+	<talkaction words="!charge;!ki" event="script" value="ki_charge.lua"/>
+	<talkaction words="!fusion;!unfusion" event="script" value="fusion.lua"/>
+	<talkaction words="!speed" event="script" value="speed_dash.lua"/>
+	<talkaction words="!guard" event="script" value="guard.lua"/>
 	<talkaction log="yes" words="/level" access="5" event="script" value="addlevel.lua"/>
 	<talkaction log="yes" words="/attr" access="5" event="function" value="thingProporties"/>
 	<talkaction log="yes" access="5" words="/name" event="script" value="name.lua"/>

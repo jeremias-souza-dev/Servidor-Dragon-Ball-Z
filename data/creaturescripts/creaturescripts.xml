@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <creaturescripts>
 	<event type="login" name="PlayerLogin" event="script" value="login.lua"/>
+	<event type="login" name="KiLogin" event="script" value="ki_login.lua"/>
+	<event type="extendedopcode" name="ExtendedOpcode" event="script" value="speed_dash_click.lua"/>
+	<event type="statschange" name="KiChargeInterrupt" event="script" value="ki_charge_interrupt.lua"/>
+	<event type="statschange" name="GuardBlock" event="script" value="guard_block.lua"/>
 	<event type="login" name="MultipleExp" event="script" value="multipleExpLogin.lua"/>
 	<event type="login" name="vip" event="script" value="vip.lua"/>
 	<event type="think" name="TiraBattle" event="script" value="tirabattle.lua"/>
