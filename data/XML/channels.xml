@@ -10,6 +10,6 @@
 	</channel>
 	<channel id="8" name="RL-Chat" level="2"/>
 	<channel id="9" name="Help" logged="yes" muted="120" conditionId="4" conditionMessage="Poderá fazer sua pergunta novamente dentro de 2 minutos."/>
-	<!-- <channel id="10" name="My Custom Channel"/> -->
+	<channel id="10" name="Site" logged="yes"/>
 	<channel id="65535" name="Private Chat Channel"/>
 </channels>

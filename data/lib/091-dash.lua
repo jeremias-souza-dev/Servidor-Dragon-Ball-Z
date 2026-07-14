@@ -28,10 +28,11 @@ local DASH_DIRECTION_VECTOR = {
 	[WEST]  = {x = -1, y = 0},
 }
 
--- Alcance maximo de UM hop -- capacidade fisica de "sumir e reaparecer",
--- escala com o level (fator secundario que tambem aumenta o alcance).
+-- Alcance maximo de UM hop -- fixo em 2 tiles por dash (nao escala mais com
+-- level). O loop em doPlayerDashDirection ainda tenta 1 tile como fallback
+-- se o de 2 estiver bloqueado/sem Ki.
 function getPlayerMaxDashDistance(cid)
-	return math.min(15, 3 + math.floor(getPlayerLevel(cid) / 25))
+	return 2
 end
 
 -- Eficiencia energetica: >1 significa gasta MENOS Ki pra mesma distancia.
@@ -47,7 +48,11 @@ function getPlayerDashCost(cid, distance, hopIndex)
 	return math.max(1, math.floor(getPlayerMaxKi(cid) * (costPercent / 100)))
 end
 
-local function isDashTileFree(pos)
+-- RET_NOERROR (thing.h) = 1. doTileQueryAdd simula se o PROPRIO jogador
+-- conseguiria realmente ficar de pe naquele tile (paredes, portas fechadas,
+-- etc.) - so checar "tem chao" nao pega isso, e o dash atravessava paredes
+-- que estavam sobre chao valido.
+local function isDashTileFree(cid, pos)
 	local tile = getTileInfo(pos)
 	if not tile or not tile.uid or tile.uid == 0 then
 		return false -- sem chao (buraco/vazio)
@@ -55,12 +60,14 @@ local function isDashTileFree(pos)
 	if tile.creatures > 0 then
 		return false
 	end
-	return true
+	return doTileQueryAdd(cid, pos, 0, false) == 1
 end
 
 -- Tenta um dash na direcao dada (NORTH/EAST/SOUTH/WEST). Procura a MAIOR
 -- distancia livre que o jogador consiga pagar (se nao der pra ir longe,
--- tenta uma distancia menor e mais barata antes de desistir). Retorna a
+-- tenta uma distancia menor e mais barata antes de desistir). Valida TODOS
+-- os tiles do caminho (nao so o destino final), senao um dash de 2 tiles
+-- podia "pular por cima" de uma parede de 1 tile de espessura. Retorna a
 -- posicao de destino em caso de sucesso, ou nil se nem o hop minimo couber
 -- no Ki disponivel ou nao houver espaco livre.
 function doPlayerDashDirection(cid, direction, hopIndex)
@@ -74,8 +81,17 @@ function doPlayerDashDirection(cid, direction, hopIndex)
 	local maxDistance = getPlayerMaxDashDistance(cid)
 
 	for distance = maxDistance, 1, -1 do
-		local candidate = {x = origin.x + (vector.x * distance), y = origin.y + (vector.y * distance), z = origin.z}
-		if isDashTileFree(candidate) and isSightClear(origin, candidate, true) then
+		local pathClear = true
+		local candidate = origin
+		for step = 1, distance do
+			candidate = {x = origin.x + (vector.x * step), y = origin.y + (vector.y * step), z = origin.z}
+			if not isDashTileFree(cid, candidate) then
+				pathClear = false
+				break
+			end
+		end
+
+		if pathClear and isSightClear(origin, candidate, true) then
 			local cost = getPlayerDashCost(cid, distance, hopIndex)
 			if getPlayerCurrentKi(cid) >= cost then
 				doPlayerConsumeKi(cid, cost)

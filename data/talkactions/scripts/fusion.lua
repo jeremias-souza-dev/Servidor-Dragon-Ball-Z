@@ -22,6 +22,14 @@ local FUSION_LIMBO_POS = {x = 1000, y = 1000, z = 7} -- ponto fixo pra "guardar"
 
 local FUSION_REQUEST_WINDOW = 10 -- segundos pra ambos dizerem !fusion
 
+-- Avisa o cliente (via extended opcode, ver otclient-mobile/modules/game_interface/
+-- gameinterface.lua) se o jogador esta fundido agora, pra ele esconder/mostrar
+-- a opcao "Fazer fusao" no menu de clique direito.
+local FUSION_STATE_OPCODE = 213
+local function notifyFusionState(cid, isFused)
+	doSendPlayerExtendedOpcode(cid, FUSION_STATE_OPCODE, isFused and "1" or "0")
+end
+
 function onSay(cid, words, param)
 	if words == "!unfusion" then
 		local hostId = getPlayerStorageValue(cid, FUSION_HOST_STORAGE)
@@ -45,7 +53,12 @@ function onSay(cid, words, param)
 		end
 
 		doPlayerEndFusion(guest)
-		doTeleportThing(guest, getCreaturePosition(host))
+
+		-- tile livre do lado do anfitriao, nao encima dele (senao os dois
+		-- ficam empilhados no mesmo quadrado, sprites sobrepostos)
+		local hostPos = getCreaturePosition(host)
+		local freePos = getClosestFreeTile(guest, hostPos, true)
+		doTeleportThing(guest, freePos or hostPos)
 		doRemoveCondition(guest, CONDITION_INVISIBLE)
 
 		doPlayerSetStorageValue(host, FUSION_GUEST_STORAGE, -1)
@@ -53,6 +66,9 @@ function onSay(cid, words, param)
 
 		doPlayerSendTextMessage(host, MESSAGE_STATUS_CONSOLE_BLUE, "A fusao foi desfeita.")
 		doPlayerSendTextMessage(guest, MESSAGE_STATUS_CONSOLE_BLUE, "A fusao foi desfeita.")
+
+		notifyFusionState(host, false)
+		notifyFusionState(guest, false)
 		return false
 	end
 
@@ -87,7 +103,24 @@ function onSay(cid, words, param)
 		doPlayerSetStorageValue(cid, FUSION_REQUEST_STORAGE, -1)
 		doPlayerSetStorageValue(target, FUSION_REQUEST_STORAGE, -1)
 
+		-- esconde o corpo original do convidado ANTES de redirecionar a conexao
+		-- (doPlayerStartFusion). doPlayerStartFusion reenvia pro cliente do
+		-- convidado um snapshot completo do mapa ao redor do anfitriao (pra
+		-- resincronizar); se o convidado ainda estivesse visivel/no lugar
+		-- antigo nesse momento, esse snapshot capturava o corpo dele "preso"
+		-- ali, e o pacote de remocao/invisibilidade que vem DEPOIS acaba
+		-- passando pela mesma conexao (agora apontando pro anfitriao) e se
+		-- perde - dai os dois corpos aparecerem sobrepostos durante a fusao.
+		local guestOriginalPos = getCreaturePosition(guest)
+		local limboPos = getClosestFreeTile(guest, FUSION_LIMBO_POS, true) or FUSION_LIMBO_POS
+		doTeleportThing(guest, limboPos)
+		local invisible = createConditionObject(CONDITION_INVISIBLE)
+		setConditionParam(invisible, CONDITION_PARAM_TICKS, -1)
+		doAddCondition(guest, invisible)
+
 		if not doPlayerStartFusion(guest, host) then
+			doRemoveCondition(guest, CONDITION_INVISIBLE)
+			doTeleportThing(guest, guestOriginalPos)
 			doPlayerSendCancel(cid, "Nao foi possivel iniciar a fusao.")
 			return false
 		end
@@ -95,23 +128,24 @@ function onSay(cid, words, param)
 		-- soma o Ki do convidado no anfitriao (limitado ao KiMax do anfitriao)
 		doPlayerSetKi(host, getPlayerCurrentKi(host) + getPlayerCurrentKi(guest))
 
-		-- esconde o corpo original do convidado
-		doTeleportThing(guest, FUSION_LIMBO_POS)
-		local invisible = createConditionObject(CONDITION_INVISIBLE)
-		setConditionParam(invisible, CONDITION_PARAM_TICKS, -1)
-		doAddCondition(guest, invisible)
-
 		doPlayerSetStorageValue(host, FUSION_GUEST_STORAGE, getPlayerGUID(guest))
 		doPlayerSetStorageValue(guest, FUSION_HOST_STORAGE, getPlayerGUID(host))
 
 		doPlayerSendTextMessage(host, MESSAGE_STATUS_CONSOLE_BLUE, "Fusao iniciada! Voce e " .. getCreatureName(guest) .. " agora controlam o mesmo corpo. Diga !unfusion para desfazer.")
 		doPlayerSendTextMessage(guest, MESSAGE_STATUS_CONSOLE_BLUE, "Fusao iniciada! Voce agora controla o corpo de " .. getCreatureName(host) .. ". Diga !unfusion para desfazer.")
+
+		notifyFusionState(host, true)
+		notifyFusionState(guest, true)
 		return false
 	end
 
 	-- registra o pedido e espera o outro confirmar
 	doPlayerSetStorageValue(cid, FUSION_REQUEST_STORAGE, os.time())
 	doPlayerSetStorageValue(cid, FUSION_REQUEST_TARGET_STORAGE, getPlayerGUID(target))
-	doPlayerSendTextMessage(cid, MESSAGE_STATUS_CONSOLE_BLUE, "Pedido de fusao enviado. " .. getCreatureName(target) .. " precisa dizer !fusion " .. getCreatureName(cid) .. " em ate " .. FUSION_REQUEST_WINDOW .. " segundos.")
+	doPlayerSendTextMessage(cid, MESSAGE_STATUS_CONSOLE_BLUE, "Pedido de fusao enviado. " .. getCreatureName(target) .. " precisa aceitar em ate " .. FUSION_REQUEST_WINDOW .. " segundos.")
+
+	-- abre o modal nativo (Aceitar/Recusar) no cliente do convidado; aceitar
+	-- reenvia "!fusion <nome>" automaticamente (ver Game::playerAnswerFusionModal)
+	doPlayerSendFusionInvite(target, getCreatureName(cid))
 	return false
 end
