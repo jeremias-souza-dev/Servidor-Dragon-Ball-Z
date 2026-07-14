@@ -16408,6 +16408,15 @@
 	<spawn centerx="102" centery="400" centerz="8" radius="1">
 		<monster name="Broly" x="1" y="0" z="8" spawntime="30" />
 	</spawn>
+	<spawn centerx="545" centery="400" centerz="8" radius="1">
+		<npc name="Bander" x="0" y="0" z="8" spawntime="60" />
+	</spawn>
+	<spawn centerx="547" centery="400" centerz="8" radius="1">
+		<npc name="Blessing" x="0" y="0" z="8" spawntime="60" />
+	</spawn>
+	<spawn centerx="550" centery="400" centerz="8" radius="1">
+		<monster name="Acid Blob" x="0" y="0" z="8" spawntime="60" />
+	</spawn>
 	<spawn centerx="321" centery="401" centerz="8" radius="1">
 		<monster name="Frontal Cyborg" x="-1" y="-1" z="8" spawntime="30" />
 	</spawn>
@@ -16419,6 +16428,10 @@
 		<monster name="Frontal Cyborg" x="-1" y="0" z="8" spawntime="30" />
 	</spawn>
 	<spawn centerx="472" centery="401" centerz="8" radius="1" />
+	<spawn centerx="552" centery="401" centerz="8" radius="1">
+		<monster name="Android IV" x="0" y="0" z="8" spawntime="60" />
+		<monster name="C19 And C20" x="1" y="1" z="8" spawntime="60" />
+	</spawn>
 	<spawn centerx="449" centery="402" centerz="8" radius="12">
 		<monster name="Hell Janemba" x="0" y="0" z="8" spawntime="30" />
 		<monster name="Hell Janemba" x="6" y="0" z="8" spawntime="30" />
@@ -16427,6 +16440,12 @@
 	</spawn>
 	<spawn centerx="456" centery="402" centerz="8" radius="12" />
 	<spawn centerx="472" centery="402" centerz="8" radius="12" />
+	<spawn centerx="559" centery="402" centerz="8" radius="1">
+		<monster name="Android IV" x="0" y="0" z="8" spawntime="60" />
+	</spawn>
+	<spawn centerx="549" centery="404" centerz="8" radius="1">
+		<npc name="Boater" x="0" y="0" z="8" spawntime="60" />
+	</spawn>
 	<spawn centerx="103" centery="408" centerz="8" radius="1">
 		<monster name="Broly" x="0" y="1" z="8" spawntime="30" />
 	</spawn>
